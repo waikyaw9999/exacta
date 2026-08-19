@@ -52,11 +52,11 @@ jobs:
       with:
         context: ./backend
         push: true
-        tags: derickwai61/timer-backend:latest
+        tags: derickwai/timer-backend:latest
         
     - name: Build and push Frontend Image
       uses: docker/build-push-action@v4
       with:
         context: ./frontend
         push: true
-        tags: derickwai61/timer-frontend:latest
+        tags: derickwai/timer-frontend:latest
