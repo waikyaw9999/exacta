@@ -1,0 +1,24 @@
+# Cursor AI Rules for Professional Timer App
+
+## Global Rules
+- Always prioritize clean, readable, and modular code.
+- Write brief, descriptive commit messages.
+- Never hardcode sensitive credentials; always use environment variables (`.env`).
+
+## Backend (Java / Spring Boot)
+- Use Java 17 features (Records for DTOs, Pattern Matching, Text Blocks).
+- Architecture: Strictly follow Controller -> Service -> Repository pattern.
+- Data Transfer: Never expose JPA Entities directly in REST controllers. Always use DTOs (Data Transfer Objects) mapping to/from entities in the Service layer.
+- API Design: Follow standard RESTful conventions (e.g., GET /api/v1/time-entries).
+- Database: Use Liquibase or Flyway for database migrations. Do not rely on `hibernate.hbm2ddl.auto=update` in production.
+- Lombok: Use Lombok `@Data`, `@Builder`, and `@Slf4j` to reduce boilerplate.
+
+## Frontend (React / TypeScript)
+- Use functional components and React Hooks exclusively. No Class components.
+- Typing: Use strict TypeScript interfaces for all API responses and Component props. Avoid `any`.
+- Styling: Use Tailwind CSS for all styling. Ensure responsive design (mobile-first).
+- State: Use Zustand for global state (like user session or active timer state) and React Query (TanStack Query) for data fetching and caching.
+- Components: Keep components small and reusable. The Timer must be a persistent component that doesn't lose state on page navigation.
+
+## Infrastructure
+- Keep Dockerfiles optimized (use multi-stage builds for Java to keep the image small).
