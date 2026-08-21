@@ -68,6 +68,54 @@ Set `APP_SEED_ENABLED=false` once you no longer want demo users created on an em
 
 GitHub Actions builds the backend and frontend on every push. Images publish to Docker Hub on `main` when `DOCKER_USERNAME` and `DOCKER_PASSWORD` secrets are configured.
 
+### Automatic deploy to a z.com (or any) VPS
+
+z.com does not connect to GitHub in the dashboard. The VM is just Ubuntu. GitHub Actions SSHs in after it pushes images.
+
+**One-time on the server** (Ubuntu, as a user in the `docker` group):
+
+```bash
+sudo apt update
+sudo apt install -y git docker.io docker-compose-v2
+sudo usermod -aG docker $USER
+# log out and back in
+
+git clone https://github.com/<your-user>/exacta.git /opt/exacta
+cd /opt/exacta
+cp .env.example .env
+nano .env   # set POSTGRES_PASSWORD, JWT_SECRET, CORS_ALLOWED_ORIGINS=http://YOUR_SERVER_IP
+docker compose -f docker-compose.prod.yml up -d
+```
+
+Create a **separate SSH key** for GitHub (do not reuse your laptop key):
+
+```bash
+ssh-keygen -t ed25519 -C "github-deploy" -f github-deploy -N ""
+```
+
+Add `github-deploy.pub` to the server (`~/.ssh/authorized_keys`). Keep `github-deploy` private.
+
+**GitHub → Settings → Secrets and variables → Actions**
+
+Secrets:
+
+| Secret | Value |
+| --- | --- |
+| `SSH_HOST` | VPS public IP |
+| `SSH_USER` | Ubuntu username (often `ubuntu` or `root`) |
+| `SSH_PRIVATE_KEY` | Full contents of the **private** `github-deploy` file |
+| `DEPLOY_PATH` | `/opt/exacta` |
+
+Variable (Settings → Secrets and variables → Actions → **Variables**):
+
+| Variable | Value |
+| --- | --- |
+| `ENABLE_VPS_DEPLOY` | `true` |
+
+Security group: allow **22**, **80**, and **443**. Do not open **5432**.
+
+After that, every push to `main` tests, pushes Docker images, then SSHs to the VM and runs `docker compose pull && up -d`. Leave `ENABLE_VPS_DEPLOY` unset until the VM is ready so the workflow does not fail on SSH.
+
 ## API
 
 | Method | Path | Notes |
