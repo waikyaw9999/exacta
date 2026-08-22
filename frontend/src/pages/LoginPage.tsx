@@ -15,7 +15,7 @@ export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (accessToken) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/app" replace />;
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -25,7 +25,7 @@ export default function LoginPage() {
     try {
       const response = await login({ email, password });
       setSession(response.accessToken, response.user);
-      navigate("/", { replace: true });
+      navigate("/app", { replace: true });
     } catch (err) {
       setError(getApiErrorMessage(err, "Could not sign in"));
     } finally {

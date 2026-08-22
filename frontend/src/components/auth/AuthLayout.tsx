@@ -25,7 +25,7 @@ export function AuthLayout({
   return (
     <main className="flex min-h-screen items-center justify-center px-4 py-10">
       <section className="w-full max-w-md rounded-2xl border border-white/10 bg-slate-900/80 p-6 shadow-2xl shadow-black/40">
-        <Link to="/login" className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
+        <Link to="/" className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
           Exacta
         </Link>
         <h1 className="mt-3 text-2xl font-semibold tracking-tight text-white">{title}</h1>

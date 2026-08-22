@@ -5,3 +5,88 @@
 body {
   @apply min-h-screen bg-slate-950 text-slate-100 antialiased;
 }
+
+.landing-page {
+  font-family: "Figtree", system-ui, sans-serif;
+  background:
+    radial-gradient(ellipse 90% 55% at 12% -10%, rgba(47, 158, 134, 0.16), transparent 55%),
+    radial-gradient(ellipse 70% 45% at 95% 8%, rgba(196, 92, 74, 0.1), transparent 50%),
+    linear-gradient(180deg, #f7faf8 0%, #eef4f1 45%, #f7faf8 100%);
+}
+
+.landing-hero-atmosphere {
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.35), transparent 40%),
+    repeating-linear-gradient(
+      -12deg,
+      transparent,
+      transparent 14px,
+      rgba(12, 47, 42, 0.025) 14px,
+      rgba(12, 47, 42, 0.025) 15px
+    );
+}
+
+.font-landing-display {
+  font-family: "Fraunces", Georgia, serif;
+  font-optical-sizing: auto;
+}
+
+@keyframes landing-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes landing-timer-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(47, 158, 134, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(47, 158, 134, 0);
+  }
+}
+
+@keyframes landing-visual-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.landing-fade {
+  animation: landing-fade-up 0.7s ease-out both;
+}
+
+.landing-fade-delay-1 {
+  animation-delay: 0.08s;
+}
+
+.landing-fade-delay-2 {
+  animation-delay: 0.18s;
+}
+
+.landing-visual {
+  animation: landing-visual-rise 0.85s ease-out both;
+}
+
+.landing-timer {
+  animation: landing-timer-pulse 2.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-fade,
+  .landing-visual,
+  .landing-timer {
+    animation: none;
+  }
+}

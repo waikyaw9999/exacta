@@ -11,7 +11,7 @@ copy .env.example .env
 docker compose up --build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and sign in:
+Open [http://localhost:3000](http://localhost:3000) for the landing page, then sign in at `/login`:
 
 | Role | Email | Password |
 | --- | --- | --- |

@@ -15,7 +15,7 @@ export function AppShell() {
 
   function handleLogout() {
     clearSession();
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
   }
 
   return (
@@ -30,10 +30,10 @@ export function AppShell() {
           </div>
           <div className="flex items-center gap-3">
             <nav className="flex items-center gap-1" aria-label="Primary">
-              <NavLink to="/" className={navLinkClass} end>
+              <NavLink to="/app" className={navLinkClass} end>
                 Dashboard
               </NavLink>
-              <NavLink to="/entries" className={navLinkClass}>
+              <NavLink to="/app/entries" className={navLinkClass}>
                 Time entries
               </NavLink>
             </nav>
